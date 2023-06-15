@@ -8,7 +8,7 @@
     "node": ">=16.3"
   },
   "scripts": {
-    "preinstall": "npm i chrome",
+    "preinstall": "npm i chrome -g",
     "build": "tsup src --format cjs --minify --dts --out-dir dist",
     "dev": "tsx watch src/index.ts",
     "start": "node .",
