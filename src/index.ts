@@ -34,6 +34,12 @@ app.use(express.static(path.join(__dirname, '/public')))
 
 app.get('/', async (req, res) => {
   const url = req.query.url as string
+  const hasUrl = Boolean(url)
+
+  if (!hasUrl) {
+    return res.status(400).json({ error: 'Missing URL query parameter.' })
+  }
+
   const noCache = Boolean(req.query['no-cache'])
   const urlWithoutProtocol = removeProtocol(url).replace('/', '')
 
