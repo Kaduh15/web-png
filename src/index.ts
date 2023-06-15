@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import path from 'path'
 
 import { getImageSite } from './puppeteer'
@@ -25,7 +25,7 @@ getPublicFolderFileNames().then((fileNames) => {
 
 app.use(express.json())
 
-app.use((req, res, next) => {
+app.use((_req, _res, next) => {
   console.log('🚀 ~ file: index.ts:14 ~ cache:', cache)
   next()
 })
@@ -69,6 +69,19 @@ app.get('/', async (req, res) => {
       ),
     )
 })
+
+app.use(errorMiddleware)
+
+function errorMiddleware(
+  error: Error,
+  _request: Request,
+  response: Response,
+  _next: NextFunction,
+) {
+  const message = error.message || 'Something went wrong'
+
+  response.status(500).json({ error: message })
+}
 
 app.listen(PORT, () => {
   console.log('Server is running')
