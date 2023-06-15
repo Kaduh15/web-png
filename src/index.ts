@@ -6,6 +6,12 @@ import { removeProtocol } from './utils/format-url'
 import { getNowDate } from './utils/get-now-date'
 import { getPublicFolderFileNames } from './utils/get-public-folder-file-names'
 
+import 'dotenv/config'
+
+console.log('🚀 ~ file: index.ts:12 ~ process.env.PORT:', process.env.PORT)
+
+const PORT = process.env.PORT || 3000
+
 const app = express()
 const cache = new Map<string, string>()
 
@@ -57,6 +63,6 @@ app.get('/', async (req, res) => {
     )
 })
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log('Server is running')
 })
