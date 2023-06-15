@@ -18,6 +18,7 @@ const cache = new Map<string, string>()
 getPublicFolderFileNames().then((fileNames) => {
   fileNames.forEach((fileName) => {
     const url = removeProtocol(fileName).replace('/', '').replace('.png', '')
+    if (url.startsWith('index.')) return
     cache.set(url, getNowDate())
   })
 })
