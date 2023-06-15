@@ -3,9 +3,9 @@ import puppeteer from 'puppeteer'
 import { removeProtocol } from './utils/format-url'
 
 /**
- * This function takes a URL, launches a headless browser, navigates to the URL, takes a screenshot of
- * the page, and saves it to a specified directory.
- * @param {string} url - The URL of the website to take a screenshot of.
+ * This function takes a URL, launches a headless browser, takes a screenshot of the website, and saves
+ * it as a PNG file in a specified directory.
+ * @param {string} url - The URL of the website from which an image needs to be captured.
  */
 export async function getImageSite(url: string) {
   let newUrl: string = url
@@ -16,15 +16,12 @@ export async function getImageSite(url: string) {
   const page = await browser.newPage()
   await page.setViewport({ width: 1920, height: 1080 })
   await page.goto(newUrl)
-  console.log(`Go to ${newUrl}`)
 
   const imageName = removeProtocol(newUrl).replace('/', '')
   await page.screenshot({
     path: `./src/public/${imageName}.png`,
-    fullPage: true,
+    type: 'png',
   })
-  console.log(`Take screenshot and save it to ./src/public/${imageName}.png`)
 
   await browser.close()
-  console.log(`Close the browser`)
 }
