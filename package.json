@@ -4,6 +4,9 @@
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=16.3"
+  },
   "scripts": {
     "build": "tsup src --format cjs --minify --dts --out-dir dist",
     "dev": "tsx watch src/index.ts",
